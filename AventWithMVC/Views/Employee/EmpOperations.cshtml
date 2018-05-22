@@ -1,0 +1,56 @@
+﻿@model AventWithMVC.Models.Employee
+
+@{
+    ViewBag.Title = "EmpOperations";
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+    $("#sidenavToggler").click(function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+    });
+</script>
+
+<body>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <div style="padding-top:50px">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <p>
+
+                        </p>
+                        @*<a href="#">Dashboard</a>*@
+                        <div class="btn-primary" style="float:right">
+                            @Html.ActionLink("Add Employee", "AddEmployeeView", "Employee", null, new { @class = "col-xs-12 dashboard-icon glyphicon glyphicon-user", @style = "font-size: 18px; color:white" })
+                        </div>
+                    </li>
+                    @*<li class="breadcrumb-item active">My Dashboard</li>*@
+                </ol>
+            </div>
+            </div>
+        </div>
+</body>
+
+            

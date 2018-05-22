@@ -1,0 +1,503 @@
+﻿@model AventWithMVC.Models.Timesheet
+
+@{
+    ViewBag.Title = "Timesheet";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<head>
+
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    @*<link href="~/Styles/Navigation.css" rel="stylesheet" />*@
+
+
+
+</head>
+
+<script>
+$(document).on('click', '.panel-heading span.clickable', function (e) {
+    var $this = $(this);
+    if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    }
+});
+$(document).on('click', '.panel div.clickable', function (e) {
+    var $this = $(this);
+    if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    }
+});
+$(document).ready(function () {
+    $('.panel-heading span.clickable').click();
+    $('.panel div.clickable').click();
+});
+
+
+
+$(document).ready(function () {
+    $("#show").on("click", function () {
+        $.each($("#tab_logic tbody tr:nth(0) td"), function () {
+
+            var total = $(".hidden").find("td:eq(1)").val();
+
+
+        });
+    });
+    // Sortable Code
+    var fixHelperModified = function (e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+
+        $helper.children().each(function (index) {
+            $(this).width($originals.eq(index).width())
+        });
+
+        return $helper;
+    };
+
+    $(".table-sortable tbody").sortable({
+        helper: fixHelperModified
+    }).disableSelection();
+
+    $(".table-sortable thead").disableSelection();
+
+
+
+    //$("#add_row").trigger("click");
+});
+var dates = [];
+$(document).ready(function () {
+    Addrow();
+
+    var curr = new Date;
+    dates.push(curr);
+    //var dates = []
+    var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+    document.getElementById("firstday").innerHTML = firstday.toLocaleDateString();
+    dates.push(firstday);
+
+    var secondday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 2));
+    document.getElementById("secondday").innerHTML = secondday.toLocaleDateString();
+    dates.push(secondday);
+    var thirdday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 3));
+    document.getElementById("thirdday").innerHTML = thirdday.toLocaleDateString();
+    dates.push(thirdday);
+    var fourthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 4));
+    document.getElementById("fourthday").innerHTML = fourthday.toLocaleDateString();
+    dates.push(fourthday);
+    var fifthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 5));
+    document.getElementById("fifthday").innerHTML = fifthday.toLocaleDateString();
+    dates.push(fifthday);
+    var sixthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 6));
+    document.getElementById("sixthday").innerHTML = sixthday.toLocaleDateString();
+    dates.push(sixthday);
+    var seventhday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
+    document.getElementById("seventhday").innerHTML = seventhday.toLocaleDateString();
+    dates.push(seventhday);
+
+
+});
+function Myfunction() {
+    var curr = new Date;
+    dates.push(curr);
+    var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+    firstday = nextweek(firstday)
+    document.getElementById("firstday").innerHTML = firstday.toLocaleDateString();
+    dates.push(firstday);
+
+    var secondday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 2));
+    secondday = nextweek(secondday)
+    document.getElementById("secondday").innerHTML = secondday.toLocaleDateString();
+    dates.push(secondday);
+
+
+    var thirdday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 3));
+    thirdday = nextweek(thirdday)
+    document.getElementById("thirdday").innerHTML = thirdday.toLocaleDateString();
+    dates.push(thirdday);
+
+    var fourthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 4));
+    fourthday = nextweek(fourthday)
+    document.getElementById("fourthday").innerHTML = fourthday.toLocaleDateString();
+    dates.push(fourthday);
+
+    var fifthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 5));
+    fifthday = nextweek(fifthday)
+    document.getElementById("fifthday").innerHTML = fifthday.toLocaleDateString();
+    dates.push(fifthday);
+
+    var sixthday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 6));
+    sixthday = nextweek(sixthday)
+    document.getElementById("sixthday").innerHTML = sixthday.toLocaleDateString();
+    dates.push(sixthday);
+
+    var seventhday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
+    seventhday = nextweek(seventhday)
+    document.getElementById("seventhday").innerHTML = seventhday.toLocaleDateString();
+    dates.push(seventhday);
+
+    $("input").each(function () {
+        $(this).val("");
+    });
+}
+$(document).on('change', '.txtclass', function () {
+    if ($(this)[0].value > 24) {
+        $(this)[0].value = "0";
+        alert("Hours Not Greater Than 24");
+        //document.getElementById("messages").innerHTML = "Hours Not Greater Than 24";
+    }
+});
+$(document).on('input', '.txtclass', function () {
+    $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+    }
+});
+function nextweek(x) {
+    var nextweek = new Date(x.getFullYear(), x.getMonth(), x.getDate() + 7);
+    return nextweek;
+}
+function showTableData(){
+    var myTab = document.getElementById('tab_logic');
+    var totals = [0, 0, 0];
+    var $dataRows = $("#tab_logic tr:not('.totalColumn, .titlerow')");
+    var rows = $('#tab_logic').find('tr');
+    var tds = $('#tab_logic').find('td');
+    var trlenght = document.getElementById('tblbody').rows.length;
+    var tdlength = document.getElementById('tblbody').rows[0].cells.length;
+    var rowvalue = 1;
+    var values1 = 0;
+    var arr = [];
+    var finaldata = [];
+    var cellarr = [];
+    var matrixdata = [];
+    var matrixincreament = 0;
+    var columndata = [];
+    var columnfinaldata = [];
+    var dfd;
+    var originaltdcount = tdlength - 1;
+    for (p = 0; p < tdlength - 1 && originaltdcount != 0; p++) {
+        var a = "addr" + rowvalue + "td" + p
+        var as = document.getElementById(a).firstChild.value;
+        cellarr.push(as);
+        if (values1 <= 0) {
+            dfd = as;
+        }
+        else {
+            dfd = dfd + ',' + as;
+        }
+        values1 += parseFloat(as);
+        rowvalue++;
+        if (rowvalue <= trlenght) {
+            if (rowvalue == trlenght) {
+                matrixdata[matrixincreament] = values1;
+                arr.push(values1);
+                $("#tbltotal td.totalCol").html("total:" + values1);
+                rowvalue = 1;
+                values1 = 0;
+                originaltdcount = originaltdcount - 1;
+                columnfinaldata[matrixincreament] = dfd;
+                matrixincreament++;
+            }
+            else {
+                columndata[matrixincreament] = as;
+                p = p - 1;
+            }
+        }
+        else {
+            rowvalue = 1;
+        }
+    }
+    for (i = 0; i < tdlength - 1; i++) {
+        cellarr.push(dates[i]);
+        if (i == 0) {
+            finaldata[i] = columnfinaldata[i];
+        }
+        else {
+            finaldata[i] = dates[i].toLocaleDateString() + '&' + columnfinaldata[i] + '!' + matrixdata[i];
+        }
+        //alert(finaldata[i]);
+    }
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: "@Url.Action("Timesheet", "Timesheet")",
+        data: JSON.stringify(finaldata),
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data) {
+            alert("Data Saved Successully");
+            Myfunction();
+        },
+        failure: function (response)
+        {
+            alert(response.responseText);
+        },
+        dataType: "json",
+        contentType: "application/json"
+    });
+}
+
+        var countn = 0;
+        var index = 1;
+        var rowIndexcount = 1;
+        var tempId = "addr1";
+        function ddlmethod(a) {
+            //if ($(a).parent().parent()[0].id == tempId) {
+                Addrow();
+                rowIndexcount++;
+                tempId = "addr" + rowIndexcount;
+            //}
+        }
+//Add row functionality
+function Addrow()
+        {
+            var newid = 0;
+            $.each($("#tab_logic tr"), function () {
+                if (parseInt($(this).data("id")) > newid) {
+                    newid = parseInt($(this).data("id"));
+                }
+            });
+            newid++;
+
+            var tr = $("<tr></tr>", {
+                id: "addr" + newid,
+                "data-id": newid
+            });
+            //alert("hi");
+            //alert(newid);
+            var tdid = 0;
+            // loop through each td and create new elements with name of newid
+            $.each($("#tab_logic tbody tr:nth(0) td"), function () {
+                var cur_td = $(this);
+
+                var children = cur_td.children();
+
+                // add new td and element if it has a nane
+                if ($(this).data("name") != undefined) {
+                    var td = $("<td></td>", {
+                        "data-name": $(cur_td).data("name"),
+                        "id": "addr" + newid + "td" + tdid
+                    });
+
+                    var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("");
+                    c.attr("name", $(cur_td).data("name") + newid);
+                    c.appendTo($(td));
+                    td.appendTo($(tr));
+                } else {
+                    var td = $("<td></td>", {
+                        'text': $('#tab_logic tr').length
+                    }).appendTo($(tr));
+                }
+                tdid++;
+            });
+
+            // add the new row
+            $(tr).appendTo($('#tab_logic'));
+
+            $(tr).find("td button.row-remove").on("click", function () {
+                $(this).closest("tr").remove();
+            });
+}
+
+//Column Wise adding hoursssss
+$(document).on('keyup', '.form-control', function (e) {
+    if ($(this).val() < 24) {
+        var sum = 0;
+        var tdlength = document.getElementById('footer-total').rows[0].cells.length;
+        for (p = 1; p < tdlength - 1; p++) {
+            $('.day' + p).each(function () {
+                sum += +$(this).val();
+            });
+            $("#tdtotal" + p).text(sum);
+            sum = 0;
+        }
+    }
+});
+
+$(document).ready(function () {
+    var tdlength = document.getElementById('footer-total').rows[0].cells.length;
+    for (p = 1; p < tdlength - 1; p++) {
+        $('.day' + p).each(function () {
+            sum += +$(this).val();
+        });
+        $("#tdtotal" + p).text(sum);
+        sum = 0;
+    }
+});
+</script>
+
+<body>
+    <div class="content-wrapper">
+        <div class="col-sm-12" style="background-color:darkgray;height:40px;margin-top:50px;">
+            <p style="font-weight:100; font-size:larger;padding-top:0.5%">Project Efforts</p>
+        </div>
+        <div>
+            <div style="margin-top:20px;">
+
+                <div class="col-md-12" style="text-align:center; font-weight:100">
+                    <div id="main">
+                        <table class="table table-bordered table-hover table-sortable" id="tab_logic">
+                            <thead>
+                                <tr>
+                                    <th style="font-weight:100" id="task">
+                                        <p id="task">Project</p>
+                                    </th>
+                                    <th class="Mon" id="Mon">
+                                        <p id="">Mon</p>
+                                        <p id="firstday"></p>
+                                    </th>
+                                    <th id="Tue">
+                                        <p id="">Tue</p>
+                                        <p id="secondday"></p>
+                                    </th>
+                                    <th id="Wed">
+                                        <p id="">Wed</p>
+                                        <p id="thirdday"></p>
+                                    </th>
+                                    <th id="Thu">
+                                        <p id="">Thu</p>
+                                        <p id="fourthday"></p>
+                                    </th>
+                                    <th id="Fri">
+                                        <p id="">Fri</p>
+                                        <p id="fifthday"></p>
+                                    </th>
+                                    <th id="Sat">
+                                        <p id="">Sat</p>
+                                        <p id="sixthday"></p>
+                                    </th>
+                                    <th id="Sun">
+                                        <p id="">Sun</p>
+                                        <p id="seventhday"></p>
+                                    </th>
+
+                                    <th>
+                                        <p id="deleterow"> Delete Row</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblbody">
+                                <tr id='addr0' class="hidden" style="display:none;">
+                                    <td data-name="sel">
+                                        @Html.DropDownList("sel", new SelectList(ViewBag.Tasks, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlform-control", onChange = "ddlmethod(this)" })
+                                    </td>
+                                    <td data-name="name" class="Mon1" id="col1">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day1 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='name0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="mail">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day2 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='mail0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="desc">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day3 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='mail0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="desc">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day4 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='mail0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="desc">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day5 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='mail0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="desc">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day6 txtclass" />
+                                        @*@Html.TextBoxFor(k => k.time, " ", new { @class = "form-control", @placeholder = "Hours" })*@
+                                        @*<input type="text" style="width:100px" name='mail0' placeholder='Hours' class="form-control" />*@
+                                    </td>
+                                    <td data-name="desc">
+                                        <input type="text" max="4" style="width:100px" placeholder='Hours' class="form-control day7 txtclass" />
+                                    </td>
+                                    <td data-name="del">
+                                        <button name="del0" style="width:25px" class='fa fa-remove row-remove'></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot id="footer-total">
+                                <tr>
+                                    <td id="tdtotal0">
+                                        <label>Day Wise Total</label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal1"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal2"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal3"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal4"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal5"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal6"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal7"></label>
+                                    </td>
+                                    <td>
+                                        <label id="tdtotal8"></label>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @*<input type="button" class="btn btn-default pull-left" value="Save" onclick="showTableData()" />*@
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-outline-info" style="background-color:#2B2F33;color: white;" onclick="showTableData()">Submit</button>
+                        </div>
+                        <p id="info"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<style>
+    .table-sortable tbody tr {
+        cursor: move;
+    }
+
+    .ddlform-control {
+        padding: 6px 12px;
+        font-size: 14px;
+        color: #555;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        background-image: none;
+        border-radius: 4px;
+    }
+
+    th {
+        font-weight: 300;
+        font-size: medium;
+    }
+</style>
+

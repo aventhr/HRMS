@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+   
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Avent Portal</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/LayoutFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/LayoutFiles/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="~/LayoutFiles/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/LayoutFiles/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/LayoutFiles/sb-admin.js"></script>
+    <script src="~/LayoutFiles/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="~/LayoutFiles/sb-admin-datatables.min.js"></script>
+    <script src="~/LayoutFiles/sb-admin-charts.min.js"></script>
+    <title>@ViewBag.Title</title>
+    <link href="https://snatchbot.me/sdk/webchat.css" rel="stylesheet" type="text/css">
+    <script src="https://snatchbot.me/sdk/webchat.min.js"></script>
+   @* <script>Init('?botID=15934&amp;appID=IexRyxOyFfmtKCB0ilrG', 600, 600, 'https://dvgpba5hywmpo.cloudfront.net/media/image/1524244368W0nXbIs4om', 'bubble', '#00AFF0', 90, 90, 62.99999999999999, '', '0', '#FFFFFF', 1); /* for authentication of its users, you can define your userID (add &amp;userID={login}) */</script>*@
+</head>
+
+<body style="font-family: 'Roboto', sans-serif;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/Login/Home"><img src="~/assets/ico/OfficeHR.png" height="55%" width="55%" /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="~/Login/Home">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Weekly TimeSheet">
+                    <a class="nav-link" href="/Weeks/TimeSheetView">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">Weekly TimeSheet</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
+                    @if (@HttpContext.Current != null && @HttpContext.Current.Session["Roleid"] != null &&
+            @HttpContext.Current.Session["Roleid"].ToString() == "1")
+        {
+            <a class="nav-link nav-link-collapse collapsed" title="Admin" data-toggle="collapse" data-target="#collapseMulti1" data-parent="#exampleAccordion">
+                <i class="fa fa-fw fa-sitemap"></i>
+                <span class="nav-link-text">Admin</span>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseMulti1">
+                <li title="Add Employee">
+                    @Html.ActionLink("Add Employee", "AddEmployeeView", "Employee")
+                </li>
+                <li title="Pending Approvals">
+                    @Html.ActionLink("Pending Approvals", "LeavesApprovel", "Admin")
+                </li>
+            </ul>
+}
+
+
+                </li>
+
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Leaves">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" data-target="#collapseMulti" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-sitemap"></i>
+                        <span class="nav-link-text">Leaves</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseMulti">
+                        <li title="Leave Application">
+                            @Html.ActionLink("Leave Application", "ApplyLeaveView", "Leave")
+                        </li>
+                        <li title="Leave Cancellation">
+                            @Html.ActionLink("Leave Cancellation", "CancelleaveView", "LeaveCancel")
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Project Efforts">
+                    <a class="nav-link" href="/Timesheet/Timesheet">
+                        <i class="fa fa-fw fa-clock-o"></i>
+                        <span class="nav-link-text">Project Efforts</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Event Calendar">
+                    <a class="nav-link" href="/Calendar/CalendarView">
+                        <i class="fa fa-fw fa-calendar"></i>
+                        <span class="nav-link-text">Event Calendar</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Event Calendar">
+                    <a class="nav-link" href="/Documents/Uploaddocumnets">
+                        <i class="fa fa-fw fa-calendar"></i>
+                        <span class="nav-link-text">Documents</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" style="margin-left:75%">
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="https://www.w3schools.com/howto/img_avatar.png" style="width:50px;height:50px" alt="Avatar" class="avatar">
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div>
+                                <p style="text-align:center;margin:0px">
+                                    @if (@HttpContext.Current != null && @HttpContext.Current.Session["Username"] != null)
+                        {
+                            @HttpContext.Current.Session["Username"].ToString()
+            }
+                                </p>
+                                <p class="text-muted small" style="text-align:center">
+                                    @if (@HttpContext.Current != null && @HttpContext.Current.Session["Email"] != null)
+                        {
+                            @HttpContext.Current.Session["Email"].ToString()
+            }
+                                </p>
+                                <a href="/Login/LogOff" style="padding-left:49%" class="fa fa-fw fa-sign-out">Logout</a>
+
+                                <div class="divider">
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li style="color:white;padding-left:20px">
+                    <div>
+                        Hello
+                    </div>
+                    <div>
+                        @HttpContext.Current.Session["Username"]
+                    </div>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/Login/Index">
+
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    @RenderBody()
+
+</body>
+
+</html>
+@*<footer>
+    <div class="col-sm-12" style="background-color:darkgray;height:55.5px;">
+    </div>
+</footer>*@
+<style>
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+</style>
+
+  
+<script>
+    $(document).ready(function () {
+        if (!string.IsNullOrEmpty(@Session["Roleid"])) {
+            return;
+        }
+            else {
+            window.location.href = '@Url.Action("Index","Login")';
+            }
+        });
+    $(document).ajaxError(function (xhr, props) {
+        alert(props.status);
+        if (props.status === 401) {
+            window.location.href = '@Url.Action("Index","Login")';
+        }
+    });
+</script>

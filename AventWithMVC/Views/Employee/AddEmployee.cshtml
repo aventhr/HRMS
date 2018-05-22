@@ -1,0 +1,358 @@
+﻿@using System.Data;
+@model AventWithMVC.Models.Employee
+
+@{
+    ViewBag.Title = "Add Employee";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="~/Styles/Commonstyles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<script type="text/javascript">
+    $(function () {
+        $("[id$=DOB]").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-80:+0",
+        });
+        $("#calenderspan").click(function () {
+            $("[id$=DOB]").focus();
+        });
+        $("[id$=EmpDOJ]").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-80:+0",
+        });
+        $("#calenderenddate").click(function () {
+            $("[id$=EmpDOJ]").focus();
+
+        });
+
+
+        $('#Empjobtype').hover(function () {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+        });
+
+
+        $(".dropdown1").hover(
+           function () {
+               $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+               $(this).toggleClass('open');
+           },
+           function () {
+               $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+               $(this).toggleClass('open');
+           });
+
+        $("#selectimg").click(function (input) {
+
+            alert("Hi..");
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+
+        function readURL(input) {
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+        }
+
+
+        $("#imageupload").on('change', function () {
+
+            var countFiles = $(this)[0].files.length;
+
+            var imgPath = $(this)[0].value;
+            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+            var image_holder = $("#preview-image");
+            image_holder.empty();
+
+            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof (FileReader) != "undefined") {
+
+                    for (var i = 0; i < countFiles; i++) {
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("<img />", {
+                                "src": e.target.result,
+                                "class": "thumbimage"
+                            }).appendTo(image_holder);
+                        }
+
+                        image_holder.show();
+                        reader.readAsDataURL($(this)[0].files[i]);
+                    }
+
+                } else {
+                    alert("It doesn't supports");
+                }
+            } else {
+                alert("Select Only images");
+            }
+        });
+
+
+        $("#ddl").click(function () {
+
+            $("[id$=Empjobtype]").click();
+
+        });
+    }
+
+
+    );
+
+
+
+
+</script>
+<style>
+    .label-format {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+    }
+
+    .table-css {
+        width: 70%;
+        text-align: left;
+        align-content: center;
+    }
+
+    .body {
+        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/102308/Blur-4.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ddlformat {
+        padding: 8px;
+        display: block;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+    }
+
+    .hideddlarrow::-ms-expand {
+        display: none;
+    }
+</style>
+
+
+@using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post))
+{
+    <div id="main" class="container">
+        <div class="row centered-form">
+            <div class="panel panel-default">
+                <div class="w3-container w3-blue">
+                    <h4>Personal Details </h4>
+                </div>
+                <div id="grid" class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @*<div id="selectimg" class="col-xs-6" style="left:19%">
+                                            <img id="blah" src="~/Images/user-image-with-black-background (1).png" alt="empimg" class="img-rounded img-responsive" draggable="false" />
+                                        </div>
+                                        <input type="file" id="opendialogue" onchange="readURL(this);">*@
+                                    <div id="preview-image" class="col-xs-6" style="left:19%">
+                                        <img id="imageupload" src="~/Images/user-image-with-black-background (1).png" />
+                                        <br /><br />
+                                        @*<input id="imageupload" type="file" class="btn btn-default btn-file"/>*@
+                                    </div>
+
+                                </div>
+                            </div>
+                            &nbsp;&nbsp;
+                            <div class="row" style="text-align:center;padding-left:85px;">
+                                <div class="col-xs-8">
+                                    <div class="label-format">Employee Code</div>
+                                    <div class="input-group glyph-group" style="padding-left:20px;">
+                                        @Html.TextBoxFor(model => model.EmpCode, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="label-format">Empoyee Name</div>
+                                    <div>
+                                        @Html.TextBoxFor(model => model.Empname, new { placeholder = "Eg:Ramkee Gurrala", @class = "w3-input" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <div class="label-format">Father Name:</div>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Empfathername, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="h-divider">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="label-format">PAN Number</div>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.EmpPAN, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="label-format">Mail-Id</div>
+                                    <div class="controls">
+                                        @*<span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </span>*@
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-divider"></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="label-format">Designation</div>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.EmpDesignation, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="label-format">Job Type</div>
+                                    <div id="ddl" class="input-group glyph-group">
+                                        @Html.DropDownList("Empjobtype", new SelectList(ViewBag.jobtype, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                        <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-divider"></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="label-format">Probation Period</div>
+                                    @*<div class="controls">
+                                            @Html.DropDownList("EmpProbationtype", new SelectList(ViewBag.Probation, "ddlvalue", "ddltext"), "Select", new { @class = "w3-input" })
+                                        </div>*@
+                                    <div class="input-group glyph-group">
+                                        @Html.DropDownList("EmpProbationtype", new SelectList(ViewBag.Probation, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                        <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="label-format">Date of Birth</div>
+                                    <div id="calenderspan" class="input-group glyph-group">
+                                        @Html.TextBoxFor(model => model.DOB, new { @class = "w3-input glyphicon" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-divider"></div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="label-format">Contact Number</div>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Empcontactnumber, new { @class = "w3-input" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="label-format">Gender</div>
+                                    <div class="controls col-xs-4">
+                                        <label class="label-format"> @Html.RadioButtonFor(m => m.EmpGender, true) Male</label>
+                                        @*@Html.RadioButtonFor(m => m.EmpGender, true)*@
+                                    </div>
+
+                                    <div class="controls col-xs-6">
+                                        <label class="label-format"> @Html.RadioButtonFor(m => m.EmpGender, false) FeMale</label>
+                                        @*@Html.RadioButtonFor(m => m.EmpGender, false) @Html.Label("FeMale")*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="h-divider"></div>
+                            <div class="row">
+                             
+                                <div class="col-xs-6">
+                                    <div class="label-format">Employee DOJ</div>
+                                    <div id="calenderenddate" class="input-group glyph-group">
+                                        @Html.TextBoxFor(model => model.EmpDOJ, new { @class = "glyphicon w3-input" })
+                                        @*<span class="input-group-addon glyphicon glyphicon-calendar"></span>*@
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="label-format">Department</div>
+                                    <div id="ddl" class="input-group glyph-group">
+                                        @Html.DropDownList("EmpDepartmenttype", new SelectList(ViewBag.Roles, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                        <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-divider"></div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="label-format">Present Address</div>
+                                <div class="controls">
+                                    @Html.TextAreaFor(model => model.Presentaddrs, new { @class = "form-control", @rows = "5" })
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="label-format">Permanent Address</div>
+                                <div class="controls">
+                                    @Html.TextAreaFor(model => model.Permanentaddrs, new { @class = "form-control", @rows = "5" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-divider"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                                Register Employee
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary pull-left" id="btnContactUs">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

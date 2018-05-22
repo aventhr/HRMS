@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Avent Portal</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/LayoutFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/LayoutFiles/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="~/LayoutFiles/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/LayoutFiles/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/LayoutFiles/sb-admin.js"></script>
+    <script src="~/LayoutFiles/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="~/LayoutFiles/sb-admin-datatables.min.js"></script>
+    <script src="~/LayoutFiles/sb-admin-charts.min.js"></script>
+    <title>@ViewBag.Title</title>   
+</head>
+
+
+<header>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <a class="navbar-brand" href="index.html">Avent Portal</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                        <a class="nav-link" href="/Login/Home">
+                            <i class="fa fa-fw fa-dashboard"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Weekly TimeSheet">
+                        <a class="nav-link" href="/Weeks/TimeSheetView">
+                            <i class="fa fa-fw fa-area-chart"></i>
+                            <span class="nav-link-text">Weekly TimeSheet</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
+                        @if (@HttpContext.Current.Session["Roleid"].ToString() == "1")
+    {
+                    <a class="nav-link nav-link-collapse collapsed" title="Admin" data-toggle="collapse" data-target="#collapseMulti1" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-sitemap"></i>
+                        <span class="nav-link-text">Admin</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseMulti1">
+                        <li title="Add Employee">
+                            @Html.ActionLink("Add Employee", "AddEmployeeView", "Employee")
+                        </li>
+                        <li title="Pending Approvals">
+                            @Html.ActionLink("Pending Approvals", "LeavesApprovel", "Admin")
+                        </li>
+                    </ul>
+}
+                    </li>
+
+
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Leaves">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" data-target="#collapseMulti" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-sitemap"></i>
+                            <span class="nav-link-text">Leaves</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseMulti">
+                            <li title="Apply Leave">
+                                @Html.ActionLink("Apply Leave", "ApplyLeaveView", "Leave")
+                            </li>
+                            <li title="Cancel Leave">
+                                @Html.ActionLink("Cancel Leave", "CancelleaveView", "LeaveCancel")
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="sidenavToggler">
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Login/Index">
+                            <i class="fa fa-fw fa-sign-out"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+
+            @RenderBody()
+        
+    </body>
+</header>
+
+</html>
+<style>
+
+</style>

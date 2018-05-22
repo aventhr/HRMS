@@ -1,0 +1,183 @@
+﻿@model AventWithMVC.Models.Leave
+
+@{
+    ViewBag.Title = "Apply Leave";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<script type="text/javascript">
+        $(function () {
+            $("[id$=Leavestartdate]").datepicker({
+                dateFormat: 'mm/dd/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-80:+0",
+            });
+                $("#calenderspan").click(function () {
+                    $("[id$=Leavestartdate]").focus();
+                });
+                $("[id$=Leaveendtdate]").datepicker({
+                    dateFormat: 'mm/dd/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-80:+0",
+                });
+                $("#calenderenddate").click(function () {
+                    $("[id$=Leaveendtdate]").focus();
+
+                });
+            });
+</script>
+<style>
+    body {
+        background-color: #F7F7F7;
+    }
+
+    .centered-form {
+        margin-top: 60px;
+    }
+
+        .centered-form .panel {
+            background: rgba(255, 255, 255, 0.8);
+        }
+</style>
+
+@using (Html.BeginForm("ApplyLeave", "Leave", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row centered-form">
+            <div class="col-md-10 col-sm-offset-2 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Leave Application</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    @Html.DropDownList("ddlleaveid", new SelectList(Model.leaveinfolist, "ddlleaveid", "leavetype"), "Leave Type", new { @class = "form-control glyphicon" })
+
+                                                    @Html.ValidationMessageFor(m => m.ddlleaveid)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="calenderspan" class="input-group glyph-group">
+                                                    @Html.TextBoxFor(k => k.Leavestartdate, " ", new { @class = "form-control glyphicon", @placeholder = "Leave StartDate" })
+                                                    @Html.ValidationMessageFor(model => model.Leavestartdate, "", new { @class = "text-danger" })
+                                                    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-xs-6 col-sm-6 col-md-8">
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion" class="">
+                                                    @Html.DropDownList("startsession", (IEnumerable<SelectListItem>)ViewBag.sessionlist, "From Session", new { @class = "form-control glyphicon" })
+                                                    @Html.ValidationMessageFor(model => model.startsession, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="calenderenddate" class="input-group glyph-group">
+                                                    @Html.TextBoxFor(k => k.Leaveendtdate, " ", new { @class = "form-control glyphicon", @placeholder = "Leave Enddate" })
+                                                    @Html.ValidationMessageFor(model => model.Leaveendtdate, "", new { @class = "text-danger" })
+                                                    <span class="input-group-addon glyphicon glyphicon-calendar"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-xs-6 col-sm-6 col-md-8">
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    @Html.DropDownList("endtsession", (IEnumerable<SelectListItem>)ViewBag.sessionlist, "To Session", new { @class = "form-control glyphicon" })
+                                                    @Html.ValidationMessageFor(model => model.endtsession, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    @Html.TextBox("Reportingto", null, new { @class = "form-control glyphicon", @placeholder = "Reporting To" })
+                                                    @Html.ValidationMessageFor(model => model.Reportingto, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-xs-6 col-sm-6 col-md-8">
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    @Html.TextBox("Contactnumber", null, new { @class = "form-control glyphicon", @placeholder = "Contact Number" })
+                                                    @Html.ValidationMessageFor(model => model.Contactnumber, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    @Html.TextArea("Reason", null, new { @class = "form-control glyphicon", @placeholder = "Reason", rows = "6", style = "width: 400px;" })
+                                                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td align="right">
+                                        <div class="col-xs-6 col-sm-6 col-md-8">
+                                            <div class="form-group">
+                                                <div id="startseesion">
+                                                    <button class="btn btn-lg btn-primary btn-signin" type="submit">Apply</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,319 @@
+﻿@model IEnumerable<AventWithMVC.Models.Weeks>
+
+@{
+    ViewBag.Title = "Weekly TimeSheet";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<style>
+    input {
+        display: inline-block;
+    }
+
+    .sucess {
+        color: forestgreen;
+        text-align: right;
+    }
+
+    .items {
+        overflow: hidden; /* simple clearfix */
+    }
+
+        .items .item {
+            float: left;
+            width: 85%;
+        }
+
+        .items .btnitem {
+            width: 20%;
+            padding-left: 15px;
+        }
+</style>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        //$(".leaveclass").prop("disabled", true);
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                            ];
+        var date = new Date();
+        document.getElementById("yearId").innerHTML = date.getFullYear();
+        document.getElementById("monthId").innerHTML = monthNames[date.getMonth()]+"-";
+        $(".hoursclass").on("keypress keyup blur", function (event) {
+            if (this.value.length > 6) {
+                return false;
+            }
+            //if ($('input:text').val()>50)
+            //{
+            //    event.preventDefault();
+            //    //return false;
+            //}
+            
+            $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+            //else
+            //{
+            //    $(".leaveclass:selected").prop("disabled", false);
+            //}
+        });
+
+        $('hoursclass').bootstrapValidator({
+            container: '#messages',
+            feedbackIcons: {
+                invalid: '',
+                validating: ''
+            },
+            fields: {
+                txthr: {
+                    selector: '.hoursclass',
+                    validators: {
+                        stringLength: {
+                            min: 0,
+                            max: 2,
+                            message: 'The hours length not greater than two digits'
+                        },
+                        integer: {
+                            message: 'The value is not an integer'
+                        },
+                        lessThan: {
+                            value: 50,
+                            //alert("The hours value not greater than 50");
+                            message: 'The hours value not greater than 50'
+                        }
+                    }
+                }
+            }
+
+        })
+
+        $('#txt').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                number: {
+                    validators: {
+                        integer: {
+                            message: 'The value is not an integer'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    
+    function showTableData()
+    {
+        var dates = [];
+        var hours = [];
+        var finaldata = [];
+        var Days = []; var leaves = [];
+        var strings;
+        $('#tblbody tr').each(function () {
+            var customerId = $(this).find(".customerIDCell").html();
+            var Numberofleave = $(this).find(".leaveclass").val();
+            customerId = customerId.replace("--","/");
+            dates.push(customerId);
+           leaves.push(Numberofleave);
+            //alert("Date is:-" + datesandhours);
+        });
+        var sum = 0;
+        $.each($('.hoursclass'), function () {
+            var grade = $(this).val();
+            sum += +grade
+            //$(".myclass").val(sum);
+            //$("#totalhrs").val(sum);
+            document.getElementById("totalhrs").innerHTML = sum;
+            hours.push(grade);
+        });
+     
+        var trlenght = document.getElementById('tblbody').rows.length;
+        var stng;
+        var i;
+        //var tdlength = document.getElementById('tblbody').rows[0].cells.length;
+        for (i = 0; i < trlenght; i++)
+        {
+            finaldata.push(dates[i] + '&' + hours[i] + '#' + leaves[i]);
+        }
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Index", "Weeks")",
+            data: JSON.stringify(finaldata),
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data) {
+            alert("Data Saved Succesfully");
+            window.location.href = "/Weeks/Index";
+
+        },
+        failure: function (response)
+        {
+            alert(response.responseText);
+        },
+        dataType: "json",
+        contentType: "application/json"
+        });
+
+    }
+</script>
+
+<style>
+    .sucessmsg {
+        color:green;
+    }
+    .footerfont {
+       font-family: "Oswald", Helvetica, Arial, sans-serif!important;
+    }
+</style>
+
+<body style="background-color:#F0EBD8">
+    @using (Html.BeginForm("Index", "Weeks", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-12 col-md-offset-3">
+                <div id="messages"></div>
+            </div>
+        </div>
+        <div style="padding-top:5%">
+            <div id="popupdiv" style="border: 1px solid red; display: none;">
+                @ViewData["Message"]
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading" style="background-color:#0C2658">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 style="font-weight:bold;color: white" class="panel-title">Hours Tracking</h3>
+                                </div>
+                                <div class="col col-xs-4 text-right">
+                                    <h3 id="monthId" style="font-weight:bold;padding-left:70%;color: white" class="panel-title col-xs-2"></h3>
+                                    <h3 id="yearId" style="font-weight:bold;padding-left:30px;color: white" class="panel-title col-xs-2"></h3>
+                                    @*<span id="yearId" style="font-size:100%;background-color:#733D8B" class="label label-info"></span>
+                                        <span id="monthId" style="font-size:100%;background-color:#733D8B" class="label label-info"></span>*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-striped table-bordered table-list" id="tblweekwise">
+                                <thead>
+                                    <tr class="row">
+                                        <th class="col-md-5" width="5%">Weeks</th>
+                                        <th class="col-md-3" width="5%">Hours</th>
+                                        <th class="col-md-2" width="5%">Daily Average</th>
+                                        <th class="col-md-2" width="5%">Number of leaves</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblbody">
+                                    @foreach (var item in ViewBag.Results)
+                                {
+                                    if ((!string.IsNullOrEmpty(@item.Startdate)) && (!string.IsNullOrEmpty(@item.Enddate)))
+                                    {
+                                <tr class="row">
+                                    <td align="center" id="dates" class="col-md-5">
+                                        <em class="customerIDCell">@item.Startdate--@item.Enddate</em>
+                                    </td>
+                                    <td id="hours" class="col-md-3">
+                                        <input id="txt" name="txthr" type="text" class="hoursclass" value="@item.Hours" />
+                                    </td>
+                                    @if (@item.Avg < 8.8)
+                                            {
+                                            <td class="col-md-2">
+                                                <em class="" style="color:red;">@item.Avg</em>
+                                            </td>
+                                            }
+                                            else
+                                            {
+                                            <td class="col-md-2">
+                                                <em class="" style="color:green;">@item.Avg</em>
+                                            </td>
+                                            }
+                                    <td class="col-md-2" style="text-align:center;">
+                                        <input value="@item.Numofleaves" type="text" class="leaveclass" style="width:50%;" />
+                                    </td>
+                                </tr>
+                                    }
+                                    else
+                                    {
+                                <tr class="row">
+                                    <td align="center" id="dates" class="col-md-5">
+                                        <em class="customerIDCell">@item.WeekDates</em>
+                                    </td>
+                                    <td id="hours" class="col-md-3">
+                                        <input id="txt" type="text" class="hoursclass" />
+                                    </td>
+                                    <td class="col-md-2">
+                                        <label for="male"></label>
+                                    </td>
+                                    <td class="col-md-2" style="text-align:center;">
+                                        <input value="" type="text" class="leaveclass" style="width:50%;" />
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                            <div class="row" style="font-size:18px;">
+                                <div class="col-md-5" style="text-align:right;padding-left:15%">
+                                    Total Hours:
+                                </div>
+                                <div class="col-md-2">
+                                    <span id="totalhrs" style="font-size:100%;" class="myclass">@ViewBag.Totalhours</span>
+                                </div>
+                                <div class="col-md-3" style="text-align:right;">
+                                    Average till date:
+                                </div>
+                                <div class="col-md-1" style="text-align:left;padding-left:0px;">
+                                    @ViewBag.tilldateaverage
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                    <div class="col col-md-7 pull-left total" style="font-size:18px;padding-left:15%">
+                                        <div class="col-md-4">
+                                            Total Hours:
+                                        </div>
+                                        <div class="col-md-3" style="text-align:left;">
+                                            <span id="totalhrs" style="font-size:100%;" class="myclass">@ViewBag.Totalhours</span>
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-5 pull-left total" style="font-size:18px;padding-left:5%">
+                                        <div class="col-md-5">
+                                            Till date avg:
+                                        </div>
+                                        <div>
+                                            @ViewBag.tilldateaverage
+                                        </div>
+
+                                    </div>
+
+                                </div>*@
+                        </div>
+                        <div class="panel-footer" style="height:15%;background-color:#0C2658;text-align:right;">
+                            <button type="button" class="btn btn-outline-info " style="background-color:#748CAB;color: white;" onclick="showTableData()">Save</button>
+                            <button type="button" class="btn btn-outline-info " style="background-color:#748CAB;color: white;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</body>
+
+
+

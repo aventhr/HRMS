@@ -1,0 +1,338 @@
+﻿@using System.Data;
+@model AventWithMVC.Models.Employee
+
+@{
+    /**/
+
+    ViewBag.Title = "Add Employee";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @*<link rel="stylesheet" href="/resources/demos/style.css">*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<script type="text/javascript">
+    $(function () {
+        $("#Dateofjoin").datepicker();
+        $("#DateofBirth").datepicker();
+
+    });
+
+    $("#sidenavToggler").click(function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+    });
+
+    $(function () {
+        $("[id$=DOB]").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-80:+0",
+        });
+        $("#calenderspan").click(function () {
+            $("[id$=DOB]").focus();
+        });
+        $("[id$=EmpDOJ]").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-80:+0",
+        });
+        $("#calenderenddate").click(function () {
+            $("[id$=EmpDOJ]").focus();
+
+        });
+
+
+        $('#Empjobtype').hover(function () {
+            $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+        });
+
+
+        $(".dropdown1").hover(
+            function () {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+                $(this).toggleClass('open');
+            });
+
+        $("#selectimg").click(function (input) {
+
+            alert("Hi..");
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+
+        function readURL(input) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+
+        $("#imageupload").on('change', function () {
+
+            var countFiles = $(this)[0].files.length;
+
+            var imgPath = $(this)[0].value;
+            var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+            var image_holder = $("#preview-image");
+            image_holder.empty();
+
+            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+                if (typeof (FileReader) != "undefined") {
+
+                    for (var i = 0; i < countFiles; i++) {
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("<img />", {
+                                "src": e.target.result,
+                                "class": "thumbimage"
+                            }).appendTo(image_holder);
+                        }
+
+                        image_holder.show();
+                        reader.readAsDataURL($(this)[0].files[i]);
+                    }
+
+                } else {
+                    alert("It doesn't supports");
+                }
+            } else {
+                alert("Select Only images");
+            }
+        });
+
+
+        $("#ddl").click(function () {
+
+            $("[id$=Empjobtype]").click();
+
+        });
+    }
+
+
+    );
+
+
+
+
+</script>
+@using (Html.BeginForm("AddEmployeeView", "Employee", FormMethod.Post))
+{
+
+    <div class="content-wrapper" style="font-family: 'Roboto', sans-serif;">
+        
+        <div id="main" class="card-md-3" style="font-weight:100">
+            <div class="col-sm-12" style="background-color:darkgray;height:40px;margin-top:46px">
+                <p style="font-size:larger;padding-top:0.5%">Add Employee</p>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-4 col-sm-6 mb-3">
+                        <div class="row">
+                            <img id="imageupload" src="~/Images/user-image-with-black-background (1).png" style="margin:0px auto" />
+                        </div>
+
+                        &nbsp;&nbsp;
+                        <div class="row" style="text-align:center;padding-left:50px;">
+                            <div class="col-xs-8">
+                                <div class="label-format">Employee Code:</div>
+                                <div class="input-group glyph-group" style="padding-left:20px;">
+                                    @Html.TextBoxFor(model => model.EmpCode, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8">
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Empoyee Name:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.Empname, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Father Name:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.Empfathername, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    PAN Number:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.EmpPAN, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Mail-Id:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Designation:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.EmpDesignation, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Job Type:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.DropDownList("Empjobtype", new SelectList(ViewBag.jobtype, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                    <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Probation Period:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.DropDownList("EmpProbationtype", new SelectList(ViewBag.Probation, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                    <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Date of Birth:
+                                </div>
+                                <div class="col-xl-6">
+                                    <input type="text" name="DOB" autocomplete="off" id="DateofBirth">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Contact Number:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.TextBoxFor(model => model.Empcontactnumber, new { @class = "w3-input", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Gender:
+                                </div>
+                                <div class="col-xl-6">
+                                    <label class="label-format"> @Html.RadioButtonFor(m => m.EmpGender, true) Male</label>
+                                    <label class="label-format"> @Html.RadioButtonFor(m => m.EmpGender, false) FeMale</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin:0px auto;">
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Employee DOJ:
+                                </div>
+                                <div class="col-xl-6">
+                                    <input type="text" autocomplete="off" name="EmpDOJ" id="Dateofjoin">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="col-xl-6">
+                                    Department:
+                                </div>
+                                <div class="col-xl-6">
+                                    @Html.DropDownList("EmpDepartmenttype", new SelectList(ViewBag.Roles, "ddlvalue", "ddltext"), "--Select--", new { @class = "ddlformat hideddlarrow glyphicon" })
+                                    <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        Present Address:
+                        @Html.TextAreaFor(model => model.Presentaddrs, new { @class = "form-control", @rows = "2", @autocomplete = "off" })
+                    </div>
+                    <div class="col-lg-6">
+                        Permanent Address:
+                        @Html.TextAreaFor(model => model.Permanentaddrs, new { @class = "form-control", @rows = "2", @autocomplete = "off" })
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row pull-right" style="margin-top:20px">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary pull-right" id="btnContactUs" style="background-color:#2B2F33;color: white;font-weight:100">Submit</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary pull-left" id="btnContactUs" style="background-color:#2B2F33;color: white;font-weight:100">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

@@ -1,0 +1,178 @@
+﻿
+@model IList<AventWithMVC.Models.TotalLeaveDetails>
+@{
+    if (@HttpContext.Current.Session["Roleid"].ToString()== "1")
+    {
+        ViewBag.Title = "Admin Dashboard";
+    }
+    else
+    {
+        ViewBag.Title = "Employee Dashboard";
+    }
+
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+
+<h2>TestView</h2>
+
+<script type="text/javascript">
+    $("#sidenavToggler").click(function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+    });
+</script>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+    @*<script src="~/LayoutFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/LayoutFiles/sb-admin.min.js"></script>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    @*<a href="#">Dashboard</a>*@
+                    <P> Hello! </P>
+                    <p>
+                        <strong>
+                            @HttpContext.Current.Session["Username"].ToString()
+                        </strong>
+                    </p>
+                </li>
+                @*<li class="breadcrumb-item active">My Dashboard</li>*@
+            </ol>
+
+            <!-- Icon Cards-->
+            <div class="row">
+                @foreach (var li in Model)
+                {
+                    //if (!string.IsNullOrEmpty(@li.TotalCasualLeaves)||(!string.IsNullOrEmpty(@li.TotalCasualLeaves)&&@li.leavetype== "Casual Leave"))
+                    if (@li.leavetype == "Casual Leave" && !string.IsNullOrEmpty(@li.TotalCasualLeaves))
+                    {
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-dark o-hidden h-100">
+                                <div class="card-body">
+                                    @*<div class="card-body-icon">
+                                        <i class="fa fa-fw fa-comments"></i>
+                                    </div>*@
+                                    <div class="mr-5">Casual Leave</div>
+                                    <span class="price-value">
+                                        <span class="currency"></span> @li.TotalCasualLeaves
+                                        <span class="month">/Yr</span>
+                                    </span>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="#">
+                                    <span class="float-left">@Html.ActionLink("Apply", "ApplyLeaveView", "Leave")</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (@li.leavetype == "Loss of Pay")
+                    {
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-dark o-hidden h-100">
+                                <div class="card-body">
+                                    @*<div class="card-body-icon">
+                                        <i class="fa fa-fw fa-list"></i>
+                                    </div>*@
+                                    <div class="mr-5">Loss of Pay</div>
+                                    <span class="price-value">
+                                        <span class="currency"></span> @li.TotalLOP
+                                        <span class="month">/Yr</span>
+                                    </span>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="#">
+                                    <span class="float-left">@Html.ActionLink("Apply", "ApplyLeaveView", "Leave")</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (@li.leavetype == "Bereavement")
+                    {
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-dark o-hidden h-100">
+                                <div class="card-body">
+                                    @*<div class="card-body-icon">
+                                        <i class="fa fa-fw fa-shopping-cart"></i>
+                                    </div>*@
+                                    <div class="mr-5">Bereavement Leave</div>
+                                    <span class="price-value">
+                                        <span class="currency"></span> @li.TotalBereavementLeaves
+                                        <span class="month">/Yr</span>
+                                    </span>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="#">
+                                    <span class="float-left">@Html.ActionLink("Apply", "ApplyLeaveView", "Leave")</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    if (@li.leavetype == "Paternity/Maternity")
+                    {
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-dark o-hidden h-100">
+                                <div class="card-body">
+                                    @*<div class="card-body-icon">
+                                        <i class="fa fa-fw fa-support"></i>
+                                    </div>*@
+                                    <div class="mr-5">Paternity Leave</div>
+                                    <span class="price-value">
+                                        <span class="currency"></span> @li.TodatlPaternityLeave
+                                        <span class="month">/Yr</span>
+                                    </span>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="#">
+                                    <span class="float-left">@Html.ActionLink("Apply", "ApplyLeaveView", "Leave")</span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            @if (@HttpContext.Current.Session["Roleid"].ToString() == "1")
+            {
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            @*<a href="#">Dashboard</a>*@
+                            <P> Admin Activities </P>
+                            <p>
+                                <strong class="mr-5">
+                                    <i class="fa fa-fw fa-dashboard"></i>
+                                    @Html.ActionLink("Pending Approvals", "leavesapprovel", "admin", null, new { @class = "col-xs-9 dashboard-icon", @style = "font-size:15px;color:black" })
+                                </strong>
+                                <strong class="mr-5">
+                                    <i class="fa fa-fw fa-dashboard"></i>
+                                    @Html.ActionLink("Employee Manager", "EmpOperations", "Employee", null, new { @class = "col-xs-9 dashboard-icon", @style = "font-size:15px;color:black" })
+  </strong>
+                                <strong class="mr-5">
+                                    <i class="fa fa-fw fa-dashboard"></i>
+                                    @Html.ActionLink("Monthly Attendance ", "register", "account", new { @class = "col-xs-9 dashboard-icon", @style = "font-size:15px;color:black" })
+  </strong>
+                                <strong class="mr-5">
+                                    <i class="fa fa-fw fa-dashboard"></i>
+                                    @Html.ActionLink("Office Maintenance", "register", "account", new { @class = "col-xs-9 dashboard-icon", @style = "font-size:15px;color:black" })
+   </strong>
+                            </p>
+                        </li>
+                    </ol>
+                @*<li class="breadcrumb-item active">My Dashboard</li>*@
+   
+            }
+        </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+﻿@model AventWithMVC.Models.Leave
+
+@{
+    ViewBag.Title = "Leave Approvals";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+    <!-- Custom styles for this template-->
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+
+    $("#sidenavToggler").click(function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+    });
+
+    function leavehistoryfun() {
+        $(Levehistorygrid).show();
+        $(grid).hide();
+    }
+
+    function leaveapprovalfun() {
+        $(Levehistorygrid).hide();
+        $(grid).show();
+    }
+    $(function () {
+        $('.edit-case').on('click', function (e) {
+            e.preventDefault();
+            var tr = $(this).parents('tr:first');
+            var ddl = tr.find('#ddlleaveactionid').val();
+            var lid2 = tr.find("#UserID").html();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "@Url.Content("Edit")",
+                data: JSON.stringify({ "dropdown": ddl, "Leaveid": lid2 }),
+                dataType: "json",
+                success: function (data) {
+                    @*$.post('@Url.Action("LeavesApprovel", "Admin")', function () {
+                                            alert("This alert is new data");
+                                        });
+
+                                        $.get('@Url.Action("LeavesApprovel", "Admin")', function () {
+                                            alert("This alert is new data");
+                                        });*@
+                    window.location.href = "/Admin/LeavesApprovel";
+                    @*@Url.Action("LeavesApprovel", "Admin");*@
+                    //$.get("/Admin/LeavesApprovel.cshtml");
+                    //$("~/Views/Admin/LeavesApprovel.cshtml").html();
+                    alert("The leave status Updated");
+                },
+                error: function (err) {
+                    var er = err.responseText;
+                    alert(er);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#Levehistorygrid tbody tr").each(function (i, row) {
+            var $actualRow = $(row);
+            if ($actualRow.find('#lblaction').text() == "Approved") {
+                $actualRow.css('background-color', '#8CDCAF');
+                $actualRow.find("#btnsave").hide();
+                $actualRow.find("#ddlleaveactionid").hide();
+            }
+            else {
+                $actualRow.css('background-color', '#ED8721');
+                $actualRow.find("#statusdtid").hide();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+
+       
+        if ($(window).width() <= 900)
+        {
+            $('#grid table').css("display", "block"); 
+            $('#Levehistorygrid table').css("display", "block");
+        }
+
+        $(window).resize(function () {
+            if ($(window).width() <= 900) {
+                $('#grid table').css("display", "block");
+                $('#Levehistorygrid table').css("display", "block");
+            }
+            else
+            {
+                $('#grid table').css("display", "table");
+                $('#Levehistorygrid table').css("display", "table");
+            }
+        });
+
+        //if ($(window).width() <= 900) {
+        //    alert(message);
+        //    $('#Levehistorygrid table').css("display", "block");
+        //}
+
+        //$(window).resize(function () {
+        //    if ($(window).width() <= 900) {
+        //        $('#Levehistorygrid table').css("display", "block");
+        //    }
+        //    else {
+        //        $('#Levehistorygrid table').css("display", "table");
+        //    }
+        //});
+
+        var charLimit = 20;
+
+        
+        function truncate(el) {
+            var clone = el.children().first();
+            originalContent = el.html();
+            el.attr("data-originalContent", originalContent);
+            if (clone.text().length > 20) {
+                clone.text(clone.text().substring(0, charLimit) + " ...")
+                el.empty().append(clone);
+            }
+        }
+
+        function reveal(el) {
+            el.html(el.attr("data-originalContent"));
+        }
+
+        $(".readmore").on("click", function (e) {
+            e.preventDefault();
+            var truncateElement = $(this).parent().prev().find(".truncate");
+            if ($(this).text() === "Read More") {
+                $(this).text("Read Less");
+                reveal(truncateElement);
+            } else {
+                $(this).text("Read More");
+                truncate(truncateElement);
+            }
+        });
+
+        $(".truncate").each(function () {
+            truncate($(this));
+        });
+    })
+
+
+</script>
+
+<style>
+    .ellipsis {
+        width: 170px;
+        overflow: hidden;
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+
+    /*#grid td:nth-child(2) {
+        width: 10%;
+    }*/
+
+    /*#Levehistorygrid td:nth-child(2) {
+        width: 10%;
+    }*/
+    
+
+</style>
+
+@{
+    var grid = new WebGrid(source: Model.leaveinfolist,
+                 defaultSort: "empname", selectionFieldName: "selectedRow",
+                 rowsPerPage: 5);
+
+    var gridLevehistory = new WebGrid(source: Model.Leavehistorydetails,
+                 selectionFieldName: "selectedRow", rowsPerPage: 10);
+}
+@using (Html.BeginForm("LeavesApprovel", "Admin", FormMethod.Post))
+{
+<div class="content-wrapper">
+    <div class="col-sm-12" style="background-color:darkgray;height:50px;margin-top:46px">
+        <div style="font-size:18px">
+            <p style="padding-top:1%">Employees Leave</p>
+        </div>
+    </div>
+    
+    <div class="container-fluid" style="margin-top:35px">
+        <div style="float:right;margin-right:20px">
+            <a href="#videos" data-toggle="tab" style="color:black;padding-right:30px;font-size:18px" onclick="leaveapprovalfun();">Leave Approvals</a>
+            <a href="#videos" data-toggle="tab" style="color:black;font-size:18px" onclick="leavehistoryfun();">Leaves History</a>
+        </div>
+        <div class="card-body">
+            <div id="grid" class="embed-responsive-item">
+                @grid.GetHtml(
+ tableStyle: "table table-responsive table-striped table-condensed table-responsive table-hover",
+ headerStyle: "head", rowStyle: "table-row-clickable", footerStyle: "table-pager",
+ alternatingRowStyle: "alt",
+ columns: grid.Columns(
+ grid.Column("", format: @<text><label id="UserID" style="display:none;">@item.lid</label></text>),
+ grid.Column("", "Name", style: "user", format: @<text>@item.empname</text>),
+ grid.Column("", "Start Date", style: "user", format: @<text>@item.Leavestartdate</text>),
+ grid.Column("", "End Date", style: "user", format: @<text>@item.Leaveendtdate</text>),
+ grid.Column("", "Type", style: "user", format: @<text>@item.Leavetype</text>),
+ grid.Column("", "Reason", style: "user", format: @<text>   <div class="wrap">
+            <div class="truncate">
+                <p class="ellipsis">@item.Reason</p>
+            </div>
+        </div>
+        @*<button class="btn-overflow">show more</button>*@
+        @if (@item.Reason.ToString().Length > 20)
+         {
+        <div class="read-more">
+            <a href='#' class='more readmore'>Read More</a>
+        </div>
+     }
+    </text>),
+ grid.Column(" ", format:@<text>@Html.DropDownList("ddlleaveactionid", new SelectList(ViewBag.leaveactions, "ddlleaveactionid", "ddlleaveactionstatus"), "Select", new { @class = "form-control glyphicon" })</text>),
+ grid.Column("", "Actions", format:@<text><button class="btn btn-outline-info edit-case read" style="background-color:#2B2F33;color: white;" id="btnsave">Save</button></text>)
+ )
+ )
+            </div>
+
+            @if (Model.Leavehistorydetails != null)
+        {
+            <div id="Levehistorygrid" class="embed-responsive-item" style="display:none;">
+                @gridLevehistory.GetHtml(
+   tableStyle: "table table-striped table-condensed table-responsive table-hover",
+   headerStyle: "head", rowStyle: "table-row-clickable", footerStyle: "table-pager",
+   alternatingRowStyle: "alt",
+   columns: gridLevehistory.Columns(
+   gridLevehistory.Column("", format: @<text><label id="UserID" style="display:none;">@item.Leaveid</label></text>),
+         gridLevehistory.Column("","Name", canSort: true, format: @<text>@item.empname</text>),
+gridLevehistory.Column("","Leave Type", style: "user", format: @<text>@item.Leavetype</text>),
+   gridLevehistory.Column("","Leave Status", style: "user", format: @<text><span id="lblaction" class="user">@item.Actions</span></text>),
+gridLevehistory.Column("","Status", format:@<text><div id="ddlleaveactionid23">@Html.DropDownList("ddlleaveactionid", new SelectList(ViewBag.leaveactions, "ddlleaveactionid", "ddlleaveactionstatus"), "Select", new { @class = "form-control small", @style = "width: 60%;" })</div></text>),
+gridLevehistory.Column("","Updated Date", style: "user", format: @<text><span id="statusdtid">@item.Updatedstatusdate.ToString("MM/dd/yyyy")</span></text>),
+ gridLevehistory.Column("","Actions", format:@<text><button class="btn btn-outline-info edit-case read" style="background-color:#2B2F33;color: white;" id="btnsave">Save</button></text>)
+ )
+ )
+            </div>
+    }
+        </div>
+
+    </div>
+
+</div>
+            }
+

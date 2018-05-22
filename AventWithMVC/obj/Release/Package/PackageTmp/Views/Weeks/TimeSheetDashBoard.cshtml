@@ -1,0 +1,101 @@
+﻿@model AventWithMVC.Models.Weeks
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TimeSheet DashBoard</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+        ];
+        var date = new Date();
+        var i;
+        for (i = 0 ; i <= date.getMonth() ; i++) {
+            //$("#dates").append("<li>" + monthNames[i] + "</li>");
+            $("#dates").append("<li>" + monthNames[i] + "</li>");
+            //$("#dates").append(monthNames[i]);
+        }
+    });
+    function PassMonth(value) {
+        alert(value);
+        //alert($("#dates option:selected").value());
+        //alert($(this).select.text());
+        //alert($(this).html());
+    }
+    function test(value)
+    {
+        alert(value);
+    }
+</script>
+<div class="col col-xs-4 text-right">
+    <a class="nolist" style="list-style-type:none;" href="@Url.Action("Index", "Weeks")"></a>
+</div>
+<div class="container" style="padding-top:5%">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1">
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading" style="background-color:#EAD6F4">
+                    <div class="row">
+                        <div class="col col-xs-6">
+                            <h3 style="font-weight:bold" class="panel-title">Dash Board</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-list" id="tblweekwise">
+                        <thead>
+                            <tr>
+                                <th width="5%">Month's</th>
+                                <th width="5%">Average Hours's</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+                            <tr>
+                                <td align="center">
+                                    <em class="customerIDCell"><a id="dates" onclick="PassMonth($(this).text())" style="list-style-type:none;" href="@Url.Action("Index", "Weeks")"></a></em>
+                                    <ul id="dates" style="list-style-type:none;">
+                                        <li id="jan" onclick="test($(this).text())">January</li>
+                                        <li id="feb" onclick="test($(this).text())">Febraury</li>
+                                        <li id="march" onclick="test($(this).text())">March</li>
+                                        <li id="April" onclick="test($(this).text())">April</li>
+                                        <li id="May" onclick="test($(this).text())">May</li>
+                                        <li id="June" onclick="test($(this).text())">June</li>
+                                        <li id="July" onclick="test($(this).text())">July</li>
+                                        <li id="August" onclick="test($(this).text())">August</li>
+                                        <li id="September" onclick="test($(this).text())">September</li>
+                                    </ul>
+                                </td>
+                                <td id="hours"></td>
+                            </tr>     
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col col-xs-2 pull-right">
+                            Yearly Average:
+                        </div>
+
+                        <div class="col col-xs-2 pull-right">
+                            Monthly Average:
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" style="height:20%;background-color:#EAD6F4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

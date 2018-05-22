@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "DashboardView";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+<h2>DashboardView</h2>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+    @*<script src="~/LayoutFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/LayoutFiles/sb-admin.min.js"></script>
+    <link href="https://snatchbot.me/sdk/webchat.css" rel="stylesheet" type="text/css">
+    <script src="https://snatchbot.me/sdk/webchat.min.js"></script>
+    @*<script>Init('?botID=15934&amp;appID=IexRyxOyFfmtKCB0ilrG', 600, 600, 'https://dvgpba5hywmpo.cloudfront.net/media/image/1524244368W0nXbIs4om', 'bubble', '#00AFF0', 90, 90, 62.99999999999999, '', '0', '#FFFFFF', 1); /* for authentication of its users, you can define your userID (add &amp;userID={login}) */</script>*@
+</head>
+
+<script type="text/javascript">
+    $("#sidenavToggler").click(function (e) {
+        e.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+    });
+</script>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                @*<a href="#">Dashboard</a>*@
+                <p>
+                    <strong>
+                        Admin Dashboard
+                    </strong>
+                </p>
+            </li>
+            @*<li class="breadcrumb-item active">My Dashboard</li>*@
+        </ol>
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-dark o-hidden h-100">
+                    <div class="card-body">
+                        @*<div class="card-body-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>*@
+                        <div class="mr-5">@Html.ActionLink("Approval Leaves", "LeavesApprovel", "Admin", new { @class = "col-xs-9 dashboard-icon glyphicon glyphicon-leaf", @style = "font-size:15px;color:white" })
+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-dark o-hidden h-100">
+                    <div class="card-body">
+                        @*<div class="card-body-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>*@
+                        <div class="mr-5">
+                            @Html.ActionLink("Employee Data", "Register", "Account", new { @class = "col-xs-9 dashboard-icon glyphicon glyphicon-floppy-open", @style = "font-size:15px;color:white" })
+ </div>
+                </div>
+            </div>
+        </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-dark o-hidden h-100">
+                    <div class="card-body">
+                        @*<div class="card-body-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>*@
+                        <div class="mr-5">
+                            @Html.ActionLink("Monthly Attendance ", "Register", "Account", new { @class = "col-xs-8 dashboard-icon glyphicon glyphicon-calendar", @style = "font-size:15px;color:white" })
+ </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-dark o-hidden h-100">
+                    <div class="card-body">
+                        @*<div class="card-body-icon">
+                        <i class="fa fa-fw fa-list"></i>
+                    </div>*@
+                        <div class="mr-5">
+                            @Html.ActionLink("Office Maintanance", "Register", "Account", new { @class = "col-xs-8 dashboard-icon glyphicon glyphicon-lock", @style = "font-size:15px;color:white" })
+</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>

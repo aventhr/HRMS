@@ -1,0 +1,679 @@
+﻿@model AventWithMVC.Models.Home
+@using System.Web.Optimization
+@{
+//Layout = "~/Views/Shared/_HeaderLayout.cshtml";
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/assets/css/media-queries.css" rel="stylesheet" />
+    <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/animate.css/3.5.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600">
+    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/form-elements.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/assets/ico/Aicon.png">
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+</head>
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-no-bg" role="navigation">
+    <div class="">
+        <div class="navbar-header navbar-collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <ul class="nav top-nav">
+            <li style="float:right;font-size: 15px;color: #fff"><a><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> sales@aventits.com</a></li>
+            <li style="float:right;font-size: 15px;color: #fff"><a><i class="fa fa-phone" aria-hidden="true"></i>+91-800-812-5500</a></li>
+        </ul>
+
+        <div class="collapse navbar-collapse" id="top-navbar-1">
+            <ul class="nav navbar-nav" style="font-size:12.6px">
+                <li>
+                    <a href="@Url.Action("Index", "Home")" class="navbar-left img-responsive"><img src="~/assets/img/AventLogo.png" height="60" width="200"></a>
+                </li>
+                <li style="margin-top: 1.5%"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                <li style="margin-top: 1.5%"><a href="@Url.Action("AboutUs", "Home")"><i class="fa fa-users" aria-hidden="true"></i> About Us</a></li>
+                <li class="dropdown collapse navbar-collapse" style="margin-top: 1.5%">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:white;color:#286090;">
+                        <i class="fa fa-cogs" aria-hidden="true"></i> Services
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a style="font-size: 80%" href="@Url.Action("Services", "Home")">ICT Services</a></li>
+                        <li><a style="font-size: 80%" href="@Url.Action("Staffing", "Home")">Staffing Solutions</a></li>
+                    </ul>
+                </li>
+                @*<li style="margin-top: 1.5%"><a href="@Url.Action("Services", "Home")"><i class="fa fa-cogs" aria-hidden="true"></i> Services</a></li>*@
+                @*<li class="dropdown" style="margin-top: 1.5%">
+                        <a class="" href="service.php">
+                            <i class="fa fa-cogs" aria-hidden="true">
+                            </i> Services
+                        </a>
+                        <div class="dropdown-content">
+                            <a style="font-size: 80%" href="Staffing.php">Staffing Solutions</a>
+                        </div>
+                    </li>*@
+                <li style="margin-top: 1.5%"><a href="@Url.Action("Partners", "Home")"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a></li>
+                <li style="margin-top: 1.5%"><a href="@Url.Action("Careers", "Home")"><i class="fa fa-black-tie" aria-hidden="true"></i> Careers</a></li>
+                <li style="margin-top: 1.5%"><a href="@Url.Action("Gallery", "Home")"><i class="fa fa-picture-o" aria-hidden="true"></i> Gallery</a></li>
+                <li style="margin-top: 1.5%"><a href="@Url.Action("ContactUs", "Home")"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact Us</a></li>
+                <li style="margin-top: 1.5%"><a href="http://www.aventits.com/aventblog/"><i class="fa fa-rss" aria-hidden="true"></i> Blog</a></li>
+                <li style="margin-top: 1.5%"><a href="http://202.65.148.154/" target="http://202.65.148.154/"><i class="fa fa-black-tie" aria-hidden="true"></i> Employee Portal</a></li>
+                @*<li style="margin-top: 1.5%"><a href="@Url.Action("Index", "Login")" target="_blank"><i class="fa fa-black-tie" aria-hidden="true"></i> Employee Portal</a></li>*@
+            </ul>
+
+            <div class="top">
+                <a href="#" class=""><img src="assets/ico/top.png" alt="" data-at2x="assets/ico/top.png"></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<body>
+    <div class="top-content" style="padding-top:150px;">
+        <div class="">
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <h7>We are a Product Development Company!</h7>
+                </div>
+                <div>
+                    <p class="pgfont">
+                        Avent ITS Solutions offers niche IT professional services on C#, ASP.NET, WCF, SQL Server, SharePoint, and web CMS including CMS based on .NET. We have a proven record in providing C#, ASP.NET, SQL Server-based services to ourflagship client in North America since 2014.
+                    </p>
+                </div>
+                <div class="backgroundimage">
+                    <div id="first-slider">
+                        <div id="carousel-example-generic" class="carousel slide carousel-fade">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="3" class=""></li>
+                            </ol>
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <!-- Item 1 -->
+                                <div class="item slide1 img-responsive active">
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="text-center">
+                                                <!--<img style="max-width: 200px;"  data-animation="animated zoomInLeft" src="http://s20.postimg.org/pfmmo6qj1/window_domain.png">-->
+                                            </div>
+                                            <div class="text-center">
+                                                <h4 data-animation="animated bounceInDown" class="">Avent is a proud product development company for the government sector</h4>
+                                                <!--<h4 data-animation="animated bounceInUp">Easily use stunning effects</h4>             -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="item slide2">
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="col-md-7 text-left">
+                                                <h4 data-animation="animated bounceInDown" class="">Avent specializes in revenue, taxation, compliance &amp; audit</h4>
+                                                <h4 data-animation="animated bounceInUp" class="">in</h4>
+                                                <h4 data-animation="animated bounceInDown" class="">North America</h4>
+                                            </div>
+                                            <div class="col-md-5 text-right">
+                                                <!--<img style="max-width: 200px;"  data-animation="animated zoomInLeft" src="http://s20.postimg.org/sp11uneml/rack_server_unlock.png">-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="item slide3">
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="col-md-7 text-left">
+                                                <h4 data-animation="animated bounceInDown" class="">Avent enriched its core development</h4>
+                                                <h4 data-animation="animated bounceInUp" class="">&amp;</h4>
+                                                <h4 data-animation="animated bounceInUp" class="">product life cycle since its inception</h4>
+                                            </div>
+                                            <div class="col-md-5 text-right">
+                                                <!--<img style="max-width: 200px;"  data-animation="animated zoomInLeft" src="http://s20.postimg.org/eq8xvxeq5/globe_network.png">-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 4 -->
+                                <div class="item slide4">
+                                    <div class="row">
+                                        <div class="container">
+                                            <div class="col-md-7 text-left">
+                                                <h4 data-animation="animated bounceInDown" class="">Avent has expertise in architecture, design, development</h4>
+                                                <h4 data-animation="animated bounceInUp" class=""> &amp; </h4>
+                                                <h4 data-animation="animated bounceInUp" class="">product life cycle</h4>
+
+                                            </div>
+                                            <div class="col-md-5 text-right">
+                                                <!--<img style="max-width: 200px;"  data-animation="animated zoomInLeft" src="http://s20.postimg.org/9vf8xngel/internet_speed.png">-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Item 4 -->
+
+                            </div>
+                            <!-- End Wrapper for slides-->
+
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <i class="fa fa-angle-left"></i><span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <i class="fa fa-angle-right"></i><span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid" style="margin-top:75px;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="imgAbt center">
+                                <img src="~/assets/img/backgrounds/newtechtree.jpg" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="text1" style="font-size: 30px;margin-bottom: 25px;">Our Vision</div>
+                            <p class="text1">
+                                To create a niche technology organization with best in class services for delivering value to stake holders, complete customer satisfaction,and exceeding client's expectations.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="container-fluid" style="margin-top:75px;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="imgAbt center">
+                                <img src="~/assets/img/backgrounds/mission_skull.jpg" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="text1" style="font-size: 30px;margin-bottom: 25px;">Our Mission</div>
+                            <p class="text1">
+                                To build a technology company with a niche position in our service offerings, a focus on innovation, quality culture, timely delivery discipline, use of advanced engineering tools and reusable
+                                components for better productivity and to achieve customer satisfaction.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="container-fluid" style="margin-top:75px;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="imgAbt center">
+                                <img src="~/assets/img/backgrounds/avent_values.png" height="250px;" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8">
+                            <div class="text1" style="font-size: 30px;margin-bottom: 25px;">Our Values</div>
+                            <p class="text1">
+                                Integrity - Respect - Equality - Safety - Quality - Performance - Productivity -Profitability
+                            </p>
+                            <p class="text1">These are eight pillars on which Avent stands and commits to preserve, and never compromise.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div class="">
+    <!--<div class="divider-2"><span></span></div>-->
+    <div class="">
+        <br>
+        <div class="FooterShadow">
+
+        </div>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-6 col-xs-12 fbox">
+                        <h4 style="padding-right: 50px;text-shadow:none;">Follow us on</h4>
+                        <ul style="padding-left: 20px" class="list-inline">
+                            <li><a href="https://www.facebook.com/aventits/"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/avent-it-solutions-pvt.-ltd."><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 col-sm-6 col-xs-12 fbox">
+                        <h4 style="text-shadow:none;">LATEST UPDATES</h4>
+
+                        <ul class="big list-inline">
+                            <marquee scrollamount="1" height="81" onmouseover="this.stop()" onmouseout="this.start()" scrolldelay="50" direction="up">
+                                <div class="list-inline">
+                                    <li></li><li class="list-inline-item"><span class="badge badge-secondary">Mar 09</span></li>
+                                    <li class="list-inline-item" style="text-decoration:none;"><a style="text-decoration: none;" title="">Avent celebrating 3rd aniversary</a></li>
+
+                                </div>
+
+                                <p></p>
+
+                                <div class="list-inline ">
+
+                                    <li></li><li class="list-inline-item"><span class="badge badge-secondary">Mar 06</span></li>
+                                    <li style="text-decoration:none;"><a style="text-decoration: none;" title="">Ready to host e-procuremnt project</a></li>
+
+                                </div>
+
+                                <p></p>
+
+                                <div class="list-inline ">
+                                    <li></li><li class="list-inline-item"><span class="badge badge-secondary">Feb 23</span></li>
+                                    <a style="text-decoration: none;" title="">Leave management app integration is in process</a>
+                                </div>
+                            </marquee>
+
+
+
+
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <h4 style="text-shadow:none;">Blog Posts</h4>
+                        <ul class="big">
+                            <li><a href="http://www.aventits.com/aventblog/2018/03/05/sql-server-analysis-services-ssas/" title=""># SQL Server Analysis Services</a></li>
+                            <li><a href="http://www.aventits.com/aventblog/?s=email+sending" title=""># Email sending with at attachment in ASP.NET MVC</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-12 ">
+                        <h4 style="text-shadow:none;">Contact Us</h4>
+                        <li><a href="tel:+91-800-812-5500"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +91-800-812-5500</a></li>
+                        <li><a href="sales@aventits.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> sales@aventits.com</a></li>
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+        <div class="copyRights">
+            <a class="col-sm-3"> Copyright &copy; 2017 Avent IT Solutions Pvt.Ltd. </a>
+        </div>
+        <div class="buttonlinks">
+            <!--<a class="col-sm-3"> Copyright &copy; 2017 Avent IT Solutions Pvt.Ltd. </a>-->
+            <div class="col-sm-6">
+                <a class="buttonlinks" href="Disclaimer.php">Disclaimer </a><a class="copyRights">|</a>
+                <a class="buttonlinks" href="Equal Opportunity.php">Equal Opportunity </a><a class="copyRights">|</a>
+                <a class="buttonlinks" href="Non-Solicitation.php">Non-Solicitation </a><a class="copyRights">|</a>
+                <a class="buttonlinks" href="Privacy Statement.php">Privacy Statement </a><a class="copyRights">|</a>
+                <a class="buttonlinks" href="Terms of Use.php">Terms of Use </a>
+            </div>
+            <a style="font-size:24px" href="https://www.facebook.com/aventits/"></a>&nbsp;&nbsp;
+            <a style="font-size:24px" href="https://www.linkedin.com/company/avent-it-solutions-pvt.-ltd."></a>&nbsp;&nbsp;
+        </div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script src="~/assets/js/jquery-1.11.1.min.js"></script>
+<script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/assets/js/wow.min.js"></script>
+<script src="~/assets/js/retina-1.1.0.min.js"></script>
+<script src="~/assets/js/waypoints.min.js"></script>
+<script src="~/assets/js/scripts.js"></script>
+<style>
+    @@media screen and (min-width: 992px) {
+        .text1 {
+            text-align: left;
+        }
+    }
+
+    p {
+        text-align: center;
+    }
+
+
+    /********************************/
+    /*          Main CSS     */
+    /********************************/
+
+    .FooterShadow {
+        position: relative;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        border-radius: 5px;
+        height: 20px;
+    }
+
+
+    /* Footer */
+    footer.site-footer {
+        background: #e6e6e6;
+        padding: 20px 0 0;
+        float: left;
+        width: 100%;
+    }
+
+        footer.site-footer h4 {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        footer.site-footer ul {
+            padding-left: 0;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+            footer.site-footer ul a {
+                color: #666;
+                font-size: 13px;
+            }
+
+        footer.site-footer p {
+            font-size: 13px;
+        }
+
+            footer.site-footer p a {
+                color: #666;
+            }
+
+    p.text {
+        color: #666;
+    }
+
+    #copyright {
+        background: #404040;
+        color: #ccc;
+        padding: 15px 0;
+        font-size: 12px;
+        margin-top: 20px;
+    }
+
+        #copyright p, #copyright ul {
+            margin: 0;
+            float: left;
+            font-size: 12px;
+        }
+
+        #copyright a {
+            color: #fff;
+            font-size: 12px;
+        }
+
+    .site-footer li a:hover {
+        color: #005FA6;
+    }
+
+    .site-footer li a:link {
+        text-decoration: underline;
+    }
+
+    footer.site-footer li {
+        line-height: 25px;
+    }
+
+    #first-slider .main-container {
+        padding: 0;
+    }
+
+
+    #first-slider .slide1 h3, #first-slider .slide2 h3, #first-slider .slide3 h3, #first-slider .slide4 h3 {
+        color: #fff;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    #first-slider .slide1 h4, #first-slider .slide2 h4, #first-slider .slide3 h4, #first-slider .slide4 h4 {
+        color: #fff;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-align: center;
+    }
+
+
+
+    #first-slider .carousel-indicators {
+        bottom: 0;
+    }
+
+    #first-slider .carousel-control.right,
+    #first-slider .carousel-control.left {
+        background-image: none;
+    }
+
+    #first-slider .carousel .item {
+        min-height: 150px;
+        height: 55%;
+        width: 100%;
+    }
+
+    .carousel-inner .item .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    /*.full-screen {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }*/
+
+    #first-slider h3 {
+        animation-delay: 1s;
+    }
+
+    #first-slider h4 {
+        animation-delay: 2s;
+    }
+
+    #first-slider h2 {
+        animation-delay: 3s;
+    }
+
+
+    #first-slider .carousel-control {
+        width: 6%;
+        text-shadow: none;
+    }
+
+
+    #first-slider h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #first-slider .p {
+        padding-top: 125px;
+        text-align: center;
+    }
+
+        #first-slider .p a {
+            text-decoration: underline;
+        }
+
+    #first-slider .carousel-indicators li {
+        width: 14px;
+        height: 14px;
+        background-color: rgba(255,255,255,.4);
+        border: none;
+    }
+
+    #first-slider .carousel-indicators .active {
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border: none;
+    }
+
+
+    .carousel-fade .carousel-inner .item {
+        -webkit-transition-property: opacity;
+        transition-property: opacity;
+    }
+
+    .carousel-fade .carousel-inner .item,
+    .carousel-fade .carousel-inner .active.left,
+    .carousel-fade .carousel-inner .active.right {
+        opacity: 0;
+    }
+
+    .carousel-fade .carousel-inner .active,
+    .carousel-fade .carousel-inner .next.left,
+    .carousel-fade .carousel-inner .prev.right {
+        opacity: 1;
+    }
+
+        .carousel-fade .carousel-inner .next,
+        .carousel-fade .carousel-inner .prev,
+        .carousel-fade .carousel-inner .active.left,
+        .carousel-fade .carousel-inner .active.right {
+            left: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+    .carousel-fade .carousel-control {
+        z-index: 2;
+    }
+
+    .carousel-control .fa-angle-right, .carousel-control .fa-angle-left {
+        position: absolute;
+        top: 50%;
+        z-index: 5;
+        display: inline-block;
+    }
+
+    .carousel-control .fa-angle-left {
+        left: 50%;
+        width: 38px;
+        height: 38px;
+        margin-top: -15px;
+        font-size: 30px;
+        color: #fff;
+        border: 3px solid #ffffff;
+        -webkit-border-radius: 23px;
+        -moz-border-radius: 23px;
+        border-radius: 53px;
+    }
+
+    .carousel-control .fa-angle-right {
+        right: 50%;
+        width: 38px;
+        height: 38px;
+        margin-top: -15px;
+        font-size: 30px;
+        color: #fff;
+        border: 3px solid #ffffff;
+        -webkit-border-radius: 23px;
+        -moz-border-radius: 23px;
+        border-radius: 53px;
+    }
+
+    .carousel-control {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+
+    /********************************/
+    /*       Slides backgrounds     */
+    /********************************/
+    #first-slider .slide1 {
+        background-image: url(../assets/img/portfolio/gov.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #first-slider .slide2 {
+        background-image: url(../assets/img/portfolio/tax.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #first-slider .slide3 {
+        background-image: url(../assets/img/portfolio/core.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #first-slider .slide4 {
+        background-image: url(../assets/img/portfolio/grid.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    /********************************/
+    /*          Media Queries       */
+    /********************************/
+    @@media screen and (min-width: 980px) {
+    }
+
+    @@media screen and (max-width: 640px) {
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        //Function to animate slider captions
+        function doAnimations(elems) {
+            //Cache the animationend event in a variable
+            var animEndEv = 'webkitAnimationEnd animationend';
+            elems.each(function () {
+                var $this = $(this),
+                    $animationType = $this.data('animation');
+                $this.addClass($animationType).one(animEndEv, function () {
+                    $this.removeClass($animationType);
+                });
+            });
+        }
+
+        //Variables on page load
+        var $myCarousel = $('#carousel-example-generic'),
+            $firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
+
+        //Initialize carousel
+        $myCarousel.carousel();
+
+        //Animate captions in first slide on page load
+        doAnimations($firstAnimatingElems);
+
+        //Pause carousel
+        $myCarousel.carousel('pause');
+
+        //Other slides to be animated on carousel slide event
+        $myCarousel.on('slide.bs.carousel', function (e) {
+            var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
+            doAnimations($animatingElems);
+        });
+        $('#carousel-example-generic').carousel({
+            interval: 3000,
+            pause: "false"
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

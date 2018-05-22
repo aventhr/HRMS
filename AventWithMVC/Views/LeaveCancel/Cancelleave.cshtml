@@ -1,0 +1,79 @@
+﻿@model AventWithMVC.Models.Leave
+
+@{
+    ViewBag.Title = "Cancelleave";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Cancel Leave";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+@{
+    var gridcancelleave = new WebGrid(source: Model.leaveinfolist,
+                 selectionFieldName: "selectedRow", rowsPerPage: 10);
+}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+<script type="text/javascript">
+    $(function () {
+        $('.edit-case').on('click', function (e) {
+            e.preventDefault();
+            var tr = $(this).parents('tr:first');
+            var lid2 = tr.find("#UserID").html();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "@Url.Content("Cancelleave")",
+                data: JSON.stringify({"Leaveid":lid2}),
+            dataType: "json",
+            success: function (data) {
+                window.location.href = "/LeaveCancel/Cancelleave";
+                alert("The Applied leave cancelled");
+            },
+            error: function (err) {
+                var er = err.responseText;
+                alert(er);
+            }
+        });
+    });
+    });
+
+</script>
+@using (Html.BeginForm("Cancelleave", "LeaveCancel", FormMethod.Post))
+{
+    <div id="main" class="container">
+        <div class="row centered-form">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Leave Cancellation</h3>
+                </div>
+                <div id="Leavecancelgrid">
+                    @gridcancelleave.GetHtml(
+                         tableStyle: "table table-striped table-condensed table-responsive table-hover",
+                         headerStyle: "head", rowStyle: "table-row-clickable", footerStyle: "table-pager",
+                         alternatingRowStyle: "alt",
+                         columns: gridcancelleave.Columns(
+                         gridcancelleave.Column("", format: @<text><label id="UserID" style="display:none;">@item.lid</label></text>),
+                         gridcancelleave.Column("Employee", canSort: true, format: @<text>@item.empname</text>),
+                         gridcancelleave.Column("Days", style: "user", format: @<text>@item.numberofleaves</text>),
+                         gridcancelleave.Column("Leavestartdate", style: "user", format: @<text>@item.Leavestartdate</text>),
+                         gridcancelleave.Column("Leaveendtdate", style: "user", format: @<text>@item.Leaveendtdate</text>),
+                         gridcancelleave.Column("Reason", style: "user", format: @<text>@item.Reason</text>),
+                         gridcancelleave.Column("Leave Type", format:@<text>@item.leavetype</text>),
+                         gridcancelleave.Column("Actions", format:@<text><button class="edit-case read" id="btnsave">Cancel Leave</button></text>)
+                         )
+                         )
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

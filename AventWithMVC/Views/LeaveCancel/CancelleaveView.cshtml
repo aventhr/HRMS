@@ -1,0 +1,183 @@
+﻿
+@model AventWithMVC.Models.Leave
+
+@{
+    ViewBag.Title = "Cancelleave";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Cancel Leave";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+
+@{
+    var gridcancelleave = new WebGrid(source: Model.leaveinfolist,
+                 selectionFieldName: "selectedRow", rowsPerPage: 10);
+}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>SB Admin - Start Bootstrap Template</title>
+<!-- Bootstrap core CSS-->
+<link href="~/LayoutFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template-->
+<link href="~/LayoutFiles/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Page level plugin CSS-->
+<link href="~/LayoutFiles/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<!-- Custom styles for this template-->
+<link href="~/LayoutFiles/sb-admin.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width" />
+<script src="~/LayoutFiles/vendor/jquery/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@*<script>Init('?botID=15934&amp;appID=IexRyxOyFfmtKCB0ilrG', 600, 600, 'https://dvgpba5hywmpo.cloudfront.net/media/image/1524244368W0nXbIs4om', 'bubble', '#00AFF0', 90, 90, 62.99999999999999, '', '0', '#FFFFFF', 1); /* for authentication of its users, you can define your userID (add &amp;userID={login}) */</script>*@
+<script type="text/javascript">
+    $(function () {
+        $('.edit-case').on('click', function (e) {
+            e.preventDefault();
+            var tr = $(this).parents('tr:first');
+            var lid2 = tr.find("#UserID").html();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "@Url.Content("CancelleaveView")",
+                data: JSON.stringify({"Leaveid":lid2}),
+            dataType: "json",
+            success: function (data) {
+                window.location.href = "/LeaveCancel/CancelleaveView";
+                alert("The Applied leave cancelled");
+            },
+            error: function (err) {
+                var er = err.responseText;
+                alert(er);
+            }
+        });
+    });
+    });
+
+
+    $(document).ready(function () {
+    var charLimit = 20;
+
+
+        if ($(window).width() <= 900) {
+            $('#Leavecancelgrid table').css("display", "block");
+        }
+
+        $(window).resize(function () {
+            if ($(window).width() <= 900) {
+                $('#Leavecancelgrid table').css("display", "block");
+            }
+            else {
+                $('#Leavecancelgrid table').css("display", "table");
+            }
+        });
+
+
+    function truncate(el) {
+        var clone = el.children().first(),
+            originalContent = el.html(),
+            text = clone.text();
+        el.attr("data-originalContent", originalContent);
+        if (clone.text().length > 20) {
+            clone.text(text.substring(0, charLimit) + "...")
+            el.empty().append(clone);
+        }
+    }
+
+    function reveal(el) {
+        el.html(el.attr("data-originalContent"));
+    }
+
+        $(".readmore").on("click", function (e) {
+        e.preventDefault();
+        var truncateElement = $(this).parent().prev().find(".truncate");
+        if ($(this).text() === "Read More") {
+            $(this).text("Read Less");
+            reveal(truncateElement);
+        } else {
+            $(this).text("Read More");
+            truncate(truncateElement);
+        }
+    });
+
+    $(".truncate").each(function () {
+        truncate($(this));
+    });
+    })
+
+
+</script>
+
+<style>
+    .ellipsis {
+        width: 170px;
+        overflow: hidden;
+        word-break: break-word;
+        word-wrap: break-word;
+    }
+
+    #Leavecancelgrid td:nth-child(2) {
+        width: 10%;
+    }
+
+    #Leavecancelgrid tr:nth-child(1) {
+        text-decoration: none;
+        text-underline-position: unset;
+    }
+</style>
+
+@using (Html.BeginForm("Cancelleave", "LeaveCancel", FormMethod.Post))
+{
+    <div class="content-wrapper" style="font-family: 'Roboto', sans-serif;">
+        <div class="col-sm-12" style="background-color:darkgray;height:40px;margin-top:46px">
+            <p style="font-size:larger;padding-top:0.5%">Cancel a Leave</p>
+        </div>
+        <div class="container-fluid" style="margin-top:45px">
+
+            <div class="card mb-3">
+                @*<div class="card-header" style="background-color:#435560;color:white">
+                        Cancel a Leave
+                    </div>*@
+                <div class="card-body">
+                    <div id="Leavecancelgrid" class="embed-responsive-item">
+                        @gridcancelleave.GetHtml(
+                                     tableStyle: "table table-striped table-condensed table-responsive table-hover",
+                                     headerStyle: "head", rowStyle: "table-row-clickable", footerStyle: "table-pager",
+
+                                     columns: gridcancelleave.Columns(
+                                     gridcancelleave.Column("", format: @<text><label id="UserID" style="display:none;">@item.lid</label></text>),
+                         gridcancelleave.Column("", "Name", canSort: true, format: @<text>@item.empname</text>),
+             gridcancelleave.Column("", "Days", style: "user", format: @<text>@item.numberofleaves</text>),
+ gridcancelleave.Column("", "Start Date", style: "user", format: @<text>@item.Leavestartdate</text>),
+gridcancelleave.Column("", "End Date", style: "user", format: @<text>@item.Leaveendtdate</text>),
+gridcancelleave.Column("", "Reason", style: "user", format: @<text>
+    <div class="wrap">
+        <div class="truncate">
+            <p class="ellipsis">@item.Reason</p>
+        </div>
+    </div>
+    @*<button class="btn-overflow">show more</button>*@
+                        @if (@item.Reason.ToString().Length > 20)
+         {
+        <div class="read-more">
+            <a href='#' class='more readmore'>Read More</a>
+        </div>
+     }
+</text>),
+gridcancelleave.Column("", "Type", format:@<text>@item.leavetype</text>),
+gridcancelleave.Column("", "Actions", format:@<text><button class="edit-case read edit-case read btn btn-outline-info" id="btnsave" style="background-color:#2B2F33;color:white;">Cancel Leave</button></text>)
+@*gridcancelleave.Column("", "Actions", format:@<text><button id="btnsave" class="edit-case read btn btn-outline-info" style="background-color:#2B2F33;color: white;">Cancel Leave</button></text>)*@
+)
+)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

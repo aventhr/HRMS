@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head class="top-content noscroll">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link href="~/assets/css/media-queries.css" rel="stylesheet" />
+    <link href="~/assets/css/gallery.css" rel="stylesheet" />
+    <link href="~/assets/css/about.css" rel="stylesheet" />
+    <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/animate.css/3.5.1/animate.min.css">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,600">
+    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/form-elements.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/media-queries.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/assets/ico/Aicon.png">
+
+
+
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script>
+ 
+</script>
+<style>
+   
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-no-bg" role="navigation">
+        <div class="">
+            <div class="navbar-header navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <ul class="nav top-nav">
+                <li style="float:right;font-size: 15px;color: #fff"><a><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> sales@aventits.com</a></li>
+                <li style="float:right;font-size: 15px;color: #fff"><a><i class="fa fa-phone" aria-hidden="true"></i>+91-800-812-5500</a></li>
+            </ul>
+
+            <div class="collapse navbar-collapse" id="top-navbar-1">
+                <ul class="nav navbar-nav" style="font-size:12.6px">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="navbar-left img-responsive"><img src="~/assets/img/AventLogo.png" height="60" width="200"></a>
+                    </li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("Index", "Home")"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("AboutUs", "Home")"><i class="fa fa-users" aria-hidden="true"></i> About Us</a></li>
+                    @*<li style="margin-top: 1.5%"><a href="@Url.Action("Services", "Home")"><i class="fa fa-cogs" aria-hidden="true"></i> Services</a></li>*@
+                    <li class="dropdown collapse navbar-collapse" style="margin-top: 1.5%">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="background-color:white;color:#286090;">
+                            <i class="fa fa-cogs" aria-hidden="true"></i> Services
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a style="font-size: 80%" href="@Url.Action("Services", "Home")">ICT Services</a></li>
+                            <li><a style="font-size: 80%" href="@Url.Action("Staffing", "Home")">Staffing Solutions</a></li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("Partners", "Home")"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a></li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("Careers", "Home")"><i class="fa fa-black-tie" aria-hidden="true"></i> Careers</a></li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("Gallery", "Home")"><i class="fa fa-picture-o" aria-hidden="true"></i> Gallery</a></li>
+                    <li style="margin-top: 1.5%"><a href="@Url.Action("ContactUs", "Home")"><i class="fa fa-address-book-o" aria-hidden="true"></i> Contact Us</a></li>
+                    <li style="margin-top: 1.5%"><a href="http://www.aventits.com/aventblog/"><i class="fa fa-rss" aria-hidden="true"></i> Blog</a></li>
+                    <li style="margin-top: 1.5%"><a href="http://202.65.148.154/" target="http://202.65.148.154/"><i class="fa fa-black-tie" aria-hidden="true"></i> Employee Portal</a></li>
+                </ul>
+
+                <div class="top">
+                    <a href="#" class=""><img src="assets/ico/top.png" alt="" data-at2x="assets/ico/top.png"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+﻿@model AventWithMVC.Models.Admin
+
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Adminlayout.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @*<script>Init('?botID=15934&amp;appID=IexRyxOyFfmtKCB0ilrG', 600, 600, 'https://dvgpba5hywmpo.cloudfront.net/media/image/1524244368W0nXbIs4om', 'bubble', '#00AFF0', 90, 90, 62.99999999999999, '', '0', '#FFFFFF', 1); /* for authentication of its users, you can define your userID (add &amp;userID={login}) */</script>*@
+</head>
+<div class="container">
+    <div class="row centered-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Admin Dashboard </h3>
+            </div>
+            <div id="grid" class="panel-body">
+                <div class="panel">
+                    <form>
+                        <table>
+                            <tr>
+                                @*<td>
+                                        <div class="col-md-9 dashboard-icon">
+                                            <span class="glyphicon glyphicon-leaf"></span>
+                                            @Html.ActionLink("Approval Leaves", "LeavesApprovel", "Admin")
+                                        </div>
+                                    </td>*@
+                                <td>
+                                    <div>
+                                        @Html.ActionLink("Approval Leaves", "LeavesApprovel", "Admin", new { @class = "col-xs-9 dashboard-icon glyphicon glyphicon-leaf", @style = "font-size:25px;" })
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        @Html.ActionLink("Employee Data", "Register", "Account", new { @class = "col-xs-9 dashboard-icon glyphicon glyphicon-floppy-open", @style = "font-size:25px;" })
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        @Html.ActionLink("Monthly Attendance ", "Register", "Account", new { @class = "col-xs-8 dashboard-icon glyphicon glyphicon-calendar", @style = "font-size:25px;" })
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        @Html.ActionLink("Office Mainatanance", "Register", "Account", new { @class = "col-xs-8 dashboard-icon glyphicon glyphicon-lock", @style = "font-size:25px;" })
+                                    </div>
+                                </td>
+                                @*<td>
+                                        <div class="col-md-9 dashboard-icon">
+                                            <span class="glyphicon glyphicon-floppy-open"></span>
+                                            @Html.ActionLink("Employee Data", "Register", "Account")
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-md-9 dashboard-icon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                            @Html.ActionLink("Monthly Attendance ", "Register", "Account")
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-md-9 dashboard-icon">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                            @Html.ActionLink("Office Mainatanance", "Register", "Account")
+                                        </div>
+                                    </td>*@
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
