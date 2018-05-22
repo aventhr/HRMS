@@ -16,6 +16,7 @@ namespace AventWithMVC.Controllers
         MySql.Data.MySqlClient.MySqlConnection conn;
         string myConnectionString;
         // GET: Admin
+        //This Is Ramkee Changes method
         public ActionResult Dashboard()
         {
             return View();
