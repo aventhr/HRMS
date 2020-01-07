@@ -23,7 +23,7 @@ namespace AventWithMVC.Controllers
         {
             if (Session["Roleid"] == null)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index1", "Login");
             }
             return View();
         }
